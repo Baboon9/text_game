@@ -24,12 +24,55 @@ public class GameStateBuilder {
 		}
 		StringBuilder sb = new StringBuilder();
 		while(in.hasNext()) {
-		    sb.append(in.next());
+		   processLine(in.nextLine());
 		}
 		in.close();
-		String outString;
-		outString = sb.toString();
-		
+		System.out.println(allStates);
 	}
-
+	enum BuilderState{
+		Name,
+		Text,
+		Options,
+		End,
+		Start
+	}
+	
+	private BuilderState state;
+	GameState stateObj;
+	LinkedList<GameState> allStates = new LinkedList<GameState>();
+	
+	void processLine(String line) {
+		switch(line) {
+		case "Name:":
+			state = BuilderState.Name;
+			break;
+		case "Text:":
+			state = BuilderState.Text;
+			break;
+		case "Options:":
+			state = BuilderState.Options;
+			break;
+		case "End":
+			state = BuilderState.End;
+			allStates.add(stateObj);
+			break;
+		case "Start":
+			state = BuilderState.Start;
+			stateObj = new GameState();
+			break;
+		default:
+			switch (state) {
+			case Name:
+				stateObj.name = line;
+				break;
+			case Text:
+				stateObj.text += line + "\n";
+				break;
+			case Options:
+				stateObj.options.add(new StateNode(line.split("->")[0], line.split("->")[1]));
+				break;
+			}
+			break;
+		}
+	}
 }

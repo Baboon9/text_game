@@ -1,4 +1,5 @@
-name:
+Start
+Name:
 Main Menu
 Text:
 Welcome to my Text Game.
@@ -6,10 +7,13 @@ Choose an action below.
 Options:
 Start a new game. ->Running Game
 Quit. ->Main Menu
+End
 
-name:
+Start
+Name:
 Running Game
 Text:
 Game Started..
 Options:
 Quit. ->Main Menu
+End
